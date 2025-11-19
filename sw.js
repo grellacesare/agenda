@@ -2,9 +2,7 @@ const CACHE_NAME = 'agenda-onico-cache-v1';
 const URLS_TO_CACHE = [
   './',
   './index.html',
-  './manifest.webmanifest',
-  './icon-192.png',
-  './icon-512.png'
+  './manifest.webmanifest'
 ];
 
 self.addEventListener('install', (event) => {

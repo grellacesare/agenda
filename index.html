@@ -9,24 +9,15 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <meta name="apple-mobile-web-app-title" content="Agenda Onicotecnica" />
   <link rel="manifest" href="manifest.webmanifest" />
-  <link rel="apple-touch-icon" href="icon-192.png" />
   <style>
     :root {
       --bg: #050816;
-      --bg-soft: #0b1220;
-      --bg-elevated: #111827;
       --accent: #ec4899;
-      --accent-soft: rgba(236,72,153,0.15);
       --accent-strong: #db2777;
       --accent-2: #38bdf8;
       --text: #f9fafb;
       --text-soft: #9ca3af;
-      --border: #1f2937;
-      --radius-lg: 16px;
-      --radius-xl: 22px;
       --shadow-soft: 0 18px 45px rgba(0,0,0,0.55);
-      --shadow-subtle: 0 10px 25px rgba(0,0,0,0.35);
-      --transition-fast: 0.18s ease-out;
     }
     * { box-sizing:border-box; margin:0; padding:0; font-family:system-ui,-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",sans-serif; }
     body {
@@ -50,43 +41,28 @@
       border: 1px solid rgba(148,163,184,0.25);
       backdrop-filter: blur(24px);
     }
-    header.app-header {
-      display:flex;flex-wrap:wrap;justify-content:space-between;gap:16px;margin-bottom:18px;align-items:center;
-    }
-    .brand-block{display:flex;flex-direction:column;gap:2px;}
-    .brand-title{font-size:1.35rem;font-weight:700;letter-spacing:.02em;display:flex;align-items:baseline;gap:8px;}
-    .brand-pill{padding:3px 10px;border-radius:999px;font-size:.7rem;background:linear-gradient(135deg,rgba(15,23,42,.9),rgba(15,23,42,.4));border:1px solid rgba(148,163,184,.4);text-transform:uppercase;letter-spacing:.08em;color:var(--text-soft);}
-    .brand-sub{font-size:.8rem;color:var(--text-soft);display:flex;gap:16px;flex-wrap:wrap;}
-    .brand-sub span{display:inline-flex;align-items:center;gap:6px;padding:3px 10px;border-radius:999px;background:rgba(15,23,42,.75);border:1px solid rgba(31,41,55,.8);}
-    .brand-dot{width:8px;height:8px;border-radius:999px;background:radial-gradient(circle at 30% 30%,#f9a8d4 0,#ec4899 40%,#4c1d95 100%);box-shadow:0 0 0 4px rgba(236,72,153,.25);}
-    .header-actions{display:flex;gap:8px;align-items:center;flex-wrap:wrap;}
-    .tag-badge{padding:6px 10px;border-radius:999px;font-size:.7rem;background:rgba(15,23,42,.9);border:1px solid rgba(148,163,184,.4);color:var(--text-soft);display:inline-flex;align-items:center;gap:6px;}
-    .tag-dot{width:6px;height:6px;border-radius:999px;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.25);}
     .tabs{display:flex;gap:6px;padding:4px;border-radius:999px;background:rgba(15,23,42,.95);border:1px solid rgba(31,41,55,.9);margin-bottom:16px;}
-    .tab-btn{flex:1;border-radius:999px;border:none;padding:9px 4px;font-size:.8rem;cursor:pointer;background:transparent;color:var(--text-soft);display:flex;align-items:center;justify-content:center;gap:6px;transition:background var(--transition-fast),color var(--transition-fast),box-shadow var(--transition-fast),transform var(--transition-fast);}
-    .tab-btn.active{background:radial-gradient(circle at top,rgba(248,250,252,.1),transparent 55%),linear-gradient(135deg,rgba(236,72,153,.92),rgba(56,189,248,.9));color:#0b1120;box-shadow:0 12px 25px rgba(15,23,42,.7);transform:translateY(-.5px);}
+    .tab-btn{flex:1;border-radius:999px;border:none;padding:9px 4px;font-size:.8rem;cursor:pointer;background:transparent;color:var(--text-soft);display:flex;align-items:center;justify-content:center;gap:6px;}
+    .tab-btn.active{background:radial-gradient(circle at top,rgba(248,250,252,.1),transparent 55%),linear-gradient(135deg,rgba(236,72,153,.92),rgba(56,189,248,.9));color:#0b1120;box-shadow:0 12px 25px rgba(15,23,42,.7);}
     .content-grid{display:grid;grid-template-columns:minmax(0,2.1fr) minmax(0,1.5fr);gap:14px;}
-    @media(max-width:900px){.app-shell{border-radius:18px;padding:14px;}header.app-header{flex-direction:column;align-items:flex-start;}.content-grid{grid-template-columns:minmax(0,1fr);}}
+    @media(max-width:900px){.app-shell{border-radius:18px;padding:14px;}.content-grid{grid-template-columns:minmax(0,1fr);}}
     .card{background:linear-gradient(145deg,rgba(15,23,42,.98),rgba(15,23,42,.96));border-radius:22px;padding:14px 14px 12px;border:1px solid rgba(31,41,55,.9);box-shadow:0 10px 25px rgba(0,0,0,.35);position:relative;overflow:hidden;}
-    .card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at top left,rgba(236,72,153,.18),transparent 55%),radial-gradient(circle at bottom right,rgba(56,189,248,.12),transparent 55%);opacity:.9;pointer-events:none;}
     .card-inner{position:relative;z-index:1;}
     .card-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;gap:10px;}
-    .card-title{font-size:.95rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#e5e7eb;display:flex;align-items:center;gap:8px;}
+    .card-title{font-size:.95rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#e5e7eb;}
     .muted{font-size:.78rem;color:var(--text-soft);}
     form{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px 12px;margin-bottom:8px;}
     form .full{grid-column:1 / -1;}
     label{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;margin-bottom:3px;color:var(--text-soft);}
-    input,select,textarea{width:100%;padding:7px 9px;border-radius:10px;border:1px solid rgba(55,65,81,.9);background:rgba(15,23,42,.92);color:var(--text);font-size:.8rem;transition:border-color .18s,box-shadow .18s,background .18s,transform .18s;outline:none;}
-    input:focus,select:focus,textarea:focus{border-color:var(--accent);box-shadow:0 0 0 1px rgba(236,72,153,.5);background:rgba(15,23,42,1);transform:translateY(-.5px);}
-    textarea{resize:vertical;min-height:60px;}
+    input,select,textarea{width:100%;padding:7px 9px;border-radius:10px;border:1px solid rgba(55,65,81,.9);background:rgba(15,23,42,.92);color:var(--text);font-size:.8rem;outline:none;}
     .actions-row{display:flex;flex-wrap:wrap;gap:6px;justify-content:flex-end;margin-top:2px;}
-    .btn-sm{padding:6px 10px;font-size:.75rem;border-radius:999px;border:1px solid rgba(75,85,99,.9);background:rgba(15,23,42,.98);color:var(--text-soft);display:inline-flex;align-items:center;gap:5px;cursor:pointer;transition:background .18s,border-color .18s,transform .18s,box-shadow .18s;}
-    .btn-sm.primary{border-color:transparent;background:linear-gradient(135deg,var(--accent),var(--accent-strong));color:#fff;box-shadow:0 8px 18px rgba(236,72,153,.45);}
+    .btn-sm{padding:6px 10px;font-size:.75rem;border-radius:999px;border:1px solid rgba(75,85,99,.9);background:rgba(15,23,42,.98);color:var(--text-soft);display:inline-flex;align-items:center;gap:5px;cursor:pointer;}
+    .btn-sm.primary{border-color:transparent;background:linear-gradient(135deg,var(--accent),var(--accent-strong));color:#fff;}
     .btn-sm.soft{border-color:rgba(148,163,184,.4);background:rgba(15,23,42,.96);}
     .btn-sm.danger{border-color:rgba(248,113,113,.9);color:#fecaca;}
     .table-wrapper{margin-top:8px;max-height:280px;overflow:auto;border-radius:14px;border:1px solid rgba(31,41,55,.9);background:radial-gradient(circle at top,rgba(15,23,42,.85),rgba(15,23,42,.98));}
     table{width:100%;border-collapse:collapse;font-size:.78rem;min-width:100%;}
-    thead{position:sticky;top:0;z-index:2;background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(15,23,42,.96));backdrop-filter:blur(10px);}
+    thead{position:sticky;top:0;z-index:2;background:linear-gradient(135deg,rgba(15,23,42,.98),rgba(15,23,42,.96));}
     th,td{padding:6px 8px;text-align:left;border-bottom:1px solid rgba(31,41,55,.95);white-space:nowrap;}
     th{font-weight:600;font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--text-soft);}
     tbody tr:nth-child(even){background:rgba(15,23,42,.8);}
@@ -95,45 +71,29 @@
     .status-badge.pending{border-color:rgba(245,158,11,.8);background:rgba(217,119,6,.15);color:#fed7aa;}
     .summary-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;gap:10px;flex-wrap:wrap;}
     .badge-light{font-size:.7rem;padding:2px 8px;border-radius:999px;background:rgba(15,23,42,.96);border:1px solid rgba(148,163,184,.55);color:var(--text-soft);}
+    .report-card{margin-bottom:4px;padding:6px 8px;border-radius:10px;background:rgba(15,23,42,0.94);border:1px solid rgba(55,65,81,0.9);font-size:0.78rem;}
     .hidden{display:none;}
+    .calendar-controls{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;margin-bottom:6px;align-items:flex-end;}
+    .calendar-controls > div{display:flex;flex-direction:column;gap:3px;}
+    .calendar-mode-toggle{display:flex;border-radius:999px;border:1px solid rgba(55,65,81,0.9);overflow:hidden;}
+    .calendar-mode-toggle button{flex:1;border:none;padding:6px 10px;font-size:0.75rem;background:rgba(15,23,42,0.9);color:var(--text-soft);cursor:pointer;}
+    .calendar-mode-toggle button.active{background:linear-gradient(135deg,var(--accent),var(--accent-strong));color:#fff;}
+    .calendar-grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;margin-top:6px;}
+    .calendar-day{min-height:72px;border-radius:10px;border:1px solid rgba(55,65,81,0.9);background:rgba(15,23,42,0.95);padding:4px 5px;display:flex;flex-direction:column;}
+    .calendar-day-header{display:flex;justify-content:space-between;align-items:center;font-size:0.7rem;margin-bottom:2px;color:var(--text-soft);}
+    .calendar-day-header span.date{font-weight:600;color:#e5e7eb;font-size:0.72rem;}
+    .calendar-day-body{flex:1;overflow:hidden;}
+    .calendar-appointment{font-size:0.68rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px;}
+    .calendar-appointment span.dot{display:inline-block;width:6px;height:6px;border-radius:999px;margin-right:4px;background:#22c55e;}
+    .calendar-weekdays{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;font-size:0.7rem;color:var(--text-soft);margin-top:4px;margin-bottom:2px;text-align:center;}
   </style>
 </head>
 <body>
   <div class="app-shell">
-    <header class="app-header">
-      <div class="brand-block">
-        <div class="brand-title">
-          <span>Studio Onicotecnico • Agenda Pro</span>
-          <span class="brand-pill">PWA · Offline Ready</span>
-        </div>
-        <div class="brand-sub">
-          <span>
-            <span class="brand-dot"></span>
-            <span>Clienti, appuntamenti &amp; report guadagni</span>
-          </span>
-        </div>
-      </div>
-      <div class="header-actions">
-        <span class="tag-badge">
-          <span class="tag-dot"></span>
-          <span>Dati salvati sul dispositivo</span>
-        </span>
-      </div>
-    </header>
-
     <div class="tabs">
-      <button class="tab-btn active" data-tab="clienti">
-        <span class="icon">👤</span>
-        <span>Clienti</span>
-      </button>
-      <button class="tab-btn" data-tab="appuntamenti">
-        <span class="icon">📅</span>
-        <span>Appuntamenti</span>
-      </button>
-      <button class="tab-btn" data-tab="report">
-        <span class="icon">📊</span>
-        <span>Report</span>
-      </button>
+      <button class="tab-btn active" data-tab="clienti">👤 Clienti</button>
+      <button class="tab-btn" data-tab="appuntamenti">📅 Appuntamenti</button>
+      <button class="tab-btn" data-tab="report">📊 Report</button>
     </div>
 
     <div id="tab-clienti" class="tab-content">
@@ -151,27 +111,27 @@
               <input type="hidden" id="client-id" />
               <div>
                 <label for="client-name">Nome e cognome</label>
-                <input type="text" id="client-name" required placeholder="Es. Maria Rossi" />
+                <input type="text" id="client-name" required />
               </div>
               <div>
                 <label for="client-phone">Telefono (WhatsApp)</label>
-                <input type="tel" id="client-phone" required placeholder="Es. 3931234567" />
+                <input type="tel" id="client-phone" required />
               </div>
               <div>
                 <label for="client-email">Email</label>
-                <input type="email" id="client-email" placeholder="Es. cliente@mail.com" />
+                <input type="email" id="client-email" />
               </div>
               <div>
                 <label for="client-notes">Allergie / note</label>
-                <input type="text" id="client-notes" placeholder="Es. Allergia a determinati prodotti" />
+                <input type="text" id="client-notes" />
               </div>
               <div class="full">
                 <label for="client-last-service">Ultima prestazione</label>
-                <input type="text" id="client-last-service" placeholder="Es. Refill gel, semipermanente..." />
+                <input type="text" id="client-last-service" />
               </div>
               <div class="full">
                 <label for="client-address">Indirizzo</label>
-                <input type="text" id="client-address" placeholder="Via, n°, città (facoltativo)" />
+                <input type="text" id="client-address" />
               </div>
             </form>
 
@@ -262,7 +222,7 @@
               </div>
               <div class="full">
                 <label for="appointment-notes">Note</label>
-                <textarea id="appointment-notes" placeholder="Es. Preferenze colore, ecc."></textarea>
+                <textarea id="appointment-notes"></textarea>
               </div>
             </form>
 
@@ -359,6 +319,34 @@
               <div class="muted" style="margin-bottom:4px;">Dettaglio mensile</div>
               <div id="report-monthly-grid"></div>
             </div>
+
+            <hr style="border:none;border-top:1px solid rgba(55,65,81,0.9);margin:10px 0;" />
+
+            <div>
+              <div class="muted" style="margin-bottom:4px;">Calendario appuntamenti</div>
+              <div class="calendar-controls">
+                <div>
+                  <label style="font-size:0.7rem;color:#9ca3af;">Vista</label>
+                  <div class="calendar-mode-toggle">
+                    <button type="button" id="calendar-mode-week" class="active">Settimanale</button>
+                    <button type="button" id="calendar-mode-month">Mensile</button>
+                  </div>
+                </div>
+                <div id="calendar-week-wrapper">
+                  <label for="calendar-week-date" style="font-size:0.7rem;color:#9ca3af;">Settimana di</label>
+                  <input type="date" id="calendar-week-date" />
+                </div>
+                <div id="calendar-month-wrapper" class="hidden">
+                  <label for="calendar-month" style="font-size:0.7rem;color:#9ca3af;">Mese</label>
+                  <input type="month" id="calendar-month" />
+                </div>
+              </div>
+
+              <div class="calendar-weekdays">
+                <div>Lun</div><div>Mar</div><div>Mer</div><div>Gio</div><div>Ven</div><div>Sab</div><div>Dom</div>
+              </div>
+              <div id="calendar-grid" class="calendar-grid"></div>
+            </div>
           </div>
         </div>
 
@@ -371,9 +359,8 @@
             </div>
             <ul class="muted" style="font-size:0.78rem; line-height:1.5; padding-left:16px; margin-top:4px;">
               <li>Installa questa PWA da Safari: Condividi → Aggiungi alla schermata Home.</li>
-              <li>Funziona offline grazie al Service Worker e ai dati salvati sul dispositivo.</li>
               <li>Gli appuntamenti con stato "effettuato" vengono conteggiati nel report guadagni.</li>
-              <li>I pulsanti WhatsApp aprono un messaggio precompilato con data, ora e servizio.</li>
+              <li>Nel calendario vedi tutti gli appuntamenti (confermati, effettuati, annullati) in vista settimanale o mensile.</li>
             </ul>
           </div>
         </div>
@@ -389,26 +376,13 @@
       };
 
       function loadArray(key) {
-        try {
-          const raw = localStorage.getItem(key);
-          if (!raw) return [];
-          const parsed = JSON.parse(raw);
-          return Array.isArray(parsed) ? parsed : [];
-        } catch (e) {
-          console.error('Errore lettura localStorage', key, e);
-          return [];
-        }
+        try { const raw = localStorage.getItem(key); if (!raw) return []; const parsed = JSON.parse(raw); return Array.isArray(parsed) ? parsed : []; }
+        catch (e) { console.error('Errore lettura localStorage', key, e); return []; }
       }
-
       function saveArray(key, value) {
-        try {
-          localStorage.setItem(key, JSON.stringify(value));
-        } catch (e) {
-          console.error('Errore scrittura localStorage', key, e);
-          alert('Errore nel salvataggio dei dati sul dispositivo.');
-        }
+        try { localStorage.setItem(key, JSON.stringify(value)); }
+        catch (e) { console.error('Errore scrittura localStorage', key, e); alert('Errore nel salvataggio dei dati sul dispositivo.'); }
       }
-
       function uuid() {
         return 'xxxx-4xxx-yxxx-xxxx'.replace(/[xy]/g, function(c) {
           const r = Math.random() * 16 | 0;
@@ -426,7 +400,6 @@
         appuntamenti: document.getElementById('tab-appuntamenti'),
         report: document.getElementById('tab-report')
       };
-
       tabButtons.forEach(btn => {
         btn.addEventListener('click', () => {
           tabButtons.forEach(b => b.classList.remove('active'));
@@ -437,6 +410,7 @@
           });
           if (t === 'report') {
             refreshReports();
+            renderCalendar();
           }
         });
       });
@@ -453,7 +427,6 @@
       const clientTableBody = document.getElementById('client-table-body');
       const clientCountSpan = document.getElementById('client-count');
       const clientSearchInput = document.getElementById('client-search');
-
       const clientSaveBtn = document.getElementById('client-save-btn');
       const clientResetBtn = document.getElementById('client-reset-btn');
       const clientDeleteBtn = document.getElementById('client-delete-btn');
@@ -461,63 +434,29 @@
       function renderClients(filterText) {
         const text = (filterText || '').toLowerCase();
         clientTableBody.innerHTML = '';
-
         const sorted = [...clients].sort((a, b) => a.name.localeCompare(b.name));
-
         const filtered = sorted.filter(c => {
           if (!text) return true;
           return (c.name && c.name.toLowerCase().includes(text)) ||
                  (c.phone && c.phone.toLowerCase().includes(text));
         });
-
         clientCountSpan.textContent = filtered.length.toString();
-
         filtered.forEach(c => {
           const tr = document.createElement('tr');
-
-          const tdName = document.createElement('td');
-          tdName.textContent = c.name || '';
-          tr.appendChild(tdName);
-
-          const tdPhone = document.createElement('td');
-          tdPhone.textContent = c.phone || '';
-          tr.appendChild(tdPhone);
-
-          const tdLastService = document.createElement('td');
-          tdLastService.textContent = c.lastService || '';
-          tr.appendChild(tdLastService);
-
+          const tdName = document.createElement('td'); tdName.textContent = c.name || ''; tr.appendChild(tdName);
+          const tdPhone = document.createElement('td'); tdPhone.textContent = c.phone || ''; tr.appendChild(tdPhone);
+          const tdLastService = document.createElement('td'); tdLastService.textContent = c.lastService || ''; tr.appendChild(tdLastService);
           const tdActions = document.createElement('td');
-
-          const editBtn = document.createElement('button');
-          editBtn.type = 'button';
-          editBtn.className = 'btn-sm soft';
-          editBtn.textContent = 'Modifica';
-          editBtn.addEventListener('click', () => loadClientIntoForm(c.id));
-          tdActions.appendChild(editBtn);
-
-          const waBtn = document.createElement('button');
-          waBtn.type = 'button';
-          waBtn.className = 'btn-sm primary';
-          waBtn.textContent = 'WhatsApp';
-          waBtn.addEventListener('click', () => openWhatsAppClient(c));
-          tdActions.appendChild(waBtn);
-
+          const editBtn = document.createElement('button'); editBtn.type = 'button'; editBtn.className = 'btn-sm soft'; editBtn.textContent = 'Modifica'; editBtn.addEventListener('click', () => loadClientIntoForm(c.id)); tdActions.appendChild(editBtn);
+          const waBtn = document.createElement('button'); waBtn.type = 'button'; waBtn.className = 'btn-sm primary'; waBtn.textContent = 'WhatsApp'; waBtn.addEventListener('click', () => openWhatsAppClient(c)); tdActions.appendChild(waBtn);
           tr.appendChild(tdActions);
           clientTableBody.appendChild(tr);
         });
-
         refreshAppointmentClientOptions();
       }
-
-      function resetClientForm() {
-        clientIdInput.value = '';
-        clientForm.reset();
-      }
-
+      function resetClientForm() { clientIdInput.value = ''; clientForm.reset(); }
       function loadClientIntoForm(id) {
-        const c = clients.find(x => x.id === id);
-        if (!c) return;
+        const c = clients.find(x => x.id === id); if (!c) return;
         clientIdInput.value = c.id;
         clientNameInput.value = c.name || '';
         clientPhoneInput.value = c.phone || '';
@@ -526,84 +465,49 @@
         clientLastServiceInput.value = c.lastService || '';
         clientAddressInput.value = c.address || '';
       }
-
       function saveClient() {
         const name = clientNameInput.value.trim();
         const phone = clientPhoneInput.value.trim();
-
-        if (!name || !phone) {
-          alert('Nome e telefono sono obbligatori.');
-          return;
-        }
-
+        if (!name || !phone) { alert('Nome e telefono sono obbligatori.'); return; }
         const id = clientIdInput.value || uuid();
         const existingIndex = clients.findIndex(c => c.id === id);
-
         const clientData = {
-          id,
-          name,
-          phone,
+          id, name, phone,
           email: clientEmailInput.value.trim(),
           notes: clientNotesInput.value.trim(),
           lastService: clientLastServiceInput.value.trim(),
           address: clientAddressInput.value.trim()
         };
-
-        if (existingIndex >= 0) {
-          clients[existingIndex] = clientData;
-        } else {
-          clients.push(clientData);
-        }
-
+        if (existingIndex >= 0) clients[existingIndex] = clientData; else clients.push(clientData);
         saveArray(STORAGE_KEYS.clients, clients);
         renderClients(clientSearchInput.value);
         clientIdInput.value = id;
         alert('Cliente salvato correttamente.');
       }
-
       function deleteClient() {
         const id = clientIdInput.value;
-        if (!id) {
-          alert('Seleziona prima un cliente da eliminare.');
-          return;
-        }
+        if (!id) { alert('Seleziona prima un cliente da eliminare.'); return; }
         if (!confirm('Eliminare questo cliente?')) return;
-
         const usedInAppointments = appointments.some(a => a.clientId === id);
         if (usedInAppointments) {
-          if (!confirm('Questo cliente è collegato ad alcuni appuntamenti. Vuoi eliminarlo comunque? Gli appuntamenti resteranno ma senza nome cliente.')) {
-            return;
-          }
+          if (!confirm('Questo cliente è collegato ad alcuni appuntamenti. Vuoi eliminarlo comunque? Gli appuntamenti resteranno ma senza nome cliente.')) return;
         }
-
         clients = clients.filter(c => c.id !== id);
         saveArray(STORAGE_KEYS.clients, clients);
-
-        appointments = appointments.map(a => {
-          if (a.clientId === id) {
-            return { ...a, clientId: null };
-          }
-          return a;
-        });
+        appointments = appointments.map(a => a.clientId === id ? { ...a, clientId: null } : a);
         saveArray(STORAGE_KEYS.appointments, appointments);
-
         resetClientForm();
         renderClients(clientSearchInput.value);
         renderAppointments();
         alert('Cliente eliminato.');
       }
-
       function openWhatsAppClient(client) {
-        if (!client.phone) {
-          alert('Telefono non presente per questo cliente.');
-          return;
-        }
+        if (!client.phone) { alert('Telefono non presente per questo cliente.'); return; }
         const number = client.phone.replace(/[^0-9]/g, '');
         const msg = encodeURIComponent(`Ciao ${client.name || ''}, ti scrivo dallo studio onicotecnico per le tue sedute.`);
         const url = `https://wa.me/${number}?text=${msg}`;
         window.open(url, '_blank');
       }
-
       clientSaveBtn.addEventListener('click', saveClient);
       clientResetBtn.addEventListener('click', resetClientForm);
       clientDeleteBtn.addEventListener('click', deleteClient);
@@ -619,15 +523,12 @@
       const appointmentPriceInput = document.getElementById('appointment-price');
       const appointmentStatusSelect = document.getElementById('appointment-status');
       const appointmentNotesInput = document.getElementById('appointment-notes');
-
       const appointmentSaveBtn = document.getElementById('appointment-save-btn');
       const appointmentResetBtn = document.getElementById('appointment-reset-btn');
       const appointmentDeleteBtn = document.getElementById('appointment-delete-btn');
-
       const appointmentFilterDateInput = document.getElementById('appointment-filter-date');
       const appointmentFilterStatusSelect = document.getElementById('appointment-filter-status');
       const appointmentFilterResetBtn = document.getElementById('appointment-filter-reset');
-
       const appointmentTableBody = document.getElementById('appointment-table-body');
       const appointmentCountSpan = document.getElementById('appointment-count');
 
@@ -641,19 +542,11 @@
           opt.textContent = c.name + (c.phone ? ` (${c.phone})` : '');
           appointmentClientSelect.appendChild(opt);
         });
-        if (current) {
-          appointmentClientSelect.value = current;
-        }
+        if (current) appointmentClientSelect.value = current;
       }
-
-      function resetAppointmentForm() {
-        appointmentIdInput.value = '';
-        appointmentForm.reset();
-      }
-
+      function resetAppointmentForm() { appointmentIdInput.value = ''; appointmentForm.reset(); }
       function loadAppointmentIntoForm(id) {
-        const a = appointments.find(x => x.id === id);
-        if (!a) return;
+        const a = appointments.find(x => x.id === id); if (!a) return;
         appointmentIdInput.value = a.id;
         appointmentClientSelect.value = a.clientId || '';
         appointmentDateInput.value = a.date || '';
@@ -663,196 +556,98 @@
         appointmentStatusSelect.value = a.status || 'confermato';
         appointmentNotesInput.value = a.notes || '';
       }
-
       function saveAppointment() {
         const clientId = appointmentClientSelect.value;
         const date = appointmentDateInput.value;
         const time = appointmentTimeInput.value;
         const service = appointmentServiceInput.value.trim();
         const priceRaw = appointmentPriceInput.value;
-
-        if (!clientId || !date || !time || !service || !priceRaw) {
-          alert('Compila tutti i campi obbligatori.');
-          return;
-        }
-
+        if (!clientId || !date || !time || !service || !priceRaw) { alert('Compila tutti i campi obbligatori.'); return; }
         const price = parseFloat(priceRaw);
-        if (isNaN(price) || price < 0) {
-          alert('Inserisci un prezzo valido.');
-          return;
-        }
-
+        if (isNaN(price) || price < 0) { alert('Inserisci un prezzo valido.'); return; }
         const id = appointmentIdInput.value || uuid();
         const existingIndex = appointments.findIndex(a => a.id === id);
-
-        const appData = {
-          id,
-          clientId,
-          date,
-          time,
-          service,
-          price,
-          status: appointmentStatusSelect.value || 'confermato',
-          notes: appointmentNotesInput.value.trim()
-        };
-
-        if (existingIndex >= 0) {
-          appointments[existingIndex] = appData;
-        } else {
-          appointments.push(appData);
-        }
-
+        const appData = { id, clientId, date, time, service, price, status: appointmentStatusSelect.value || 'confermato', notes: appointmentNotesInput.value.trim() };
+        if (existingIndex >= 0) appointments[existingIndex] = appData; else appointments.push(appData);
         saveArray(STORAGE_KEYS.appointments, appointments);
         renderAppointments();
-        appointmentIdInput.value = id;
         alert('Appuntamento salvato correttamente.');
+        appointmentIdInput.value = id;
       }
-
       function deleteAppointment() {
         const id = appointmentIdInput.value;
-        if (!id) {
-          alert('Seleziona prima un appuntamento da eliminare.');
-          return;
-        }
+        if (!id) { alert('Seleziona prima un appuntamento da eliminare.'); return; }
         if (!confirm('Eliminare questo appuntamento?')) return;
-
         appointments = appointments.filter(a => a.id !== id);
         saveArray(STORAGE_KEYS.appointments, appointments);
         resetAppointmentForm();
         renderAppointments();
         alert('Appuntamento eliminato.');
       }
-
       function getClientNameById(id) {
         if (!id) return '(cliente eliminato)';
         const c = clients.find(x => x.id === id);
         return c ? c.name : '(cliente eliminato)';
       }
-
       function getClientPhoneById(id) {
         if (!id) return '';
         const c = clients.find(x => x.id === id);
         return c ? (c.phone || '') : '';
       }
-
       function openWhatsAppAppointment(app) {
         const clientName = getClientNameById(app.clientId);
         const phone = getClientPhoneById(app.clientId);
-        if (!phone) {
-          alert('Telefono non presente per il cliente di questo appuntamento.');
-          return;
-        }
+        if (!phone) { alert('Telefono non presente per il cliente di questo appuntamento.'); return; }
         const number = phone.replace(/[^0-9]/g, '');
         const date = app.date || '';
         const time = app.time || '';
         const msg = encodeURIComponent(
-          `Ciao ${clientName}, ti ricordo il tuo appuntamento presso lo studio onicotecnico:
-` +
-          `📅 Data: ${date}
-` +
-          `⏰ Ora: ${time}
-` +
-          `💅 Servizio: ${app.service}
-
-` +
+          `Ciao ${clientName}, ti ricordo il tuo appuntamento presso lo studio onicotecnico:\n` +
+          `📅 Data: ${date}\n` +
+          `⏰ Ora: ${time}\n` +
+          `💅 Servizio: ${app.service}\n\n` +
           `Se hai bisogno di modificare o spostare l'appuntamento rispondi pure a questo messaggio.`
         );
         const url = `https://wa.me/${number}?text=${msg}`;
         window.open(url, '_blank');
       }
-
       function renderAppointments() {
         appointmentTableBody.innerHTML = '';
-
         let filtered = [...appointments];
-
         const dateFilter = appointmentFilterDateInput.value;
         const statusFilter = appointmentFilterStatusSelect.value;
-
-        if (dateFilter) {
-          filtered = filtered.filter(a => a.date >= dateFilter);
-        }
-        if (statusFilter) {
-          filtered = filtered.filter(a => a.status === statusFilter);
-        }
-
-        filtered.sort((a, b) => {
-          const keyA = (a.date || '') + ' ' + (a.time || '');
-          const keyB = (b.date || '') + ' ' + (b.time || '');
-          return keyA.localeCompare(keyB);
-        });
-
+        if (dateFilter) filtered = filtered.filter(a => a.date >= dateFilter);
+        if (statusFilter) filtered = filtered.filter(a => a.status === statusFilter);
+        filtered.sort((a, b) => ((a.date || '') + ' ' + (a.time || '')).localeCompare((b.date || '') + ' ' + (b.time || '')));
         appointmentCountSpan.textContent = filtered.length.toString();
-
         filtered.forEach(a => {
           const tr = document.createElement('tr');
-
-          const tdDate = document.createElement('td');
-          tdDate.textContent = (a.date || '') + (a.time ? ' ' + a.time : '');
-          tr.appendChild(tdDate);
-
-          const tdClient = document.createElement('td');
-          tdClient.textContent = getClientNameById(a.clientId);
-          tr.appendChild(tdClient);
-
-          const tdService = document.createElement('td');
-          tdService.textContent = a.service || '';
-          tr.appendChild(tdService);
-
-          const tdPrice = document.createElement('td');
-          tdPrice.textContent = a.price != null ? '€ ' + a.price.toFixed(2) : '';
-          tr.appendChild(tdPrice);
-
+          const tdDate = document.createElement('td'); tdDate.textContent = (a.date || '') + (a.time ? ' ' + a.time : ''); tr.appendChild(tdDate);
+          const tdClient = document.createElement('td'); tdClient.textContent = getClientNameById(a.clientId); tr.appendChild(tdClient);
+          const tdService = document.createElement('td'); tdService.textContent = a.service || ''; tr.appendChild(tdService);
+          const tdPrice = document.createElement('td'); tdPrice.textContent = a.price != null ? '€ ' + a.price.toFixed(2) : ''; tr.appendChild(tdPrice);
           const tdStatus = document.createElement('td');
-          const statusSpan = document.createElement('span');
-          statusSpan.className = 'status-badge';
-          if (a.status === 'confermato') {
-            statusSpan.classList.add('pending');
-            statusSpan.textContent = 'Confermato';
-          } else if (a.status === 'effettuato') {
-            statusSpan.textContent = 'Effettuato';
-          } else {
-            statusSpan.className = 'status-badge pending';
-            statusSpan.textContent = 'Annullato';
-          }
-          tdStatus.appendChild(statusSpan);
-          tr.appendChild(tdStatus);
-
+          const statusSpan = document.createElement('span'); statusSpan.className = 'status-badge';
+          if (a.status === 'confermato') { statusSpan.classList.add('pending'); statusSpan.textContent = 'Confermato'; }
+          else if (a.status === 'effettuato') { statusSpan.textContent = 'Effettuato'; }
+          else { statusSpan.className = 'status-badge pending'; statusSpan.textContent = 'Annullato'; }
+          tdStatus.appendChild(statusSpan); tr.appendChild(tdStatus);
           const tdActions = document.createElement('td');
-
-          const editBtn = document.createElement('button');
-          editBtn.type = 'button';
-          editBtn.className = 'btn-sm soft';
-          editBtn.textContent = 'Modifica';
-          editBtn.addEventListener('click', () => {
-            loadAppointmentIntoForm(a.id);
-          });
-          tdActions.appendChild(editBtn);
-
-          const waBtn = document.createElement('button');
-          waBtn.type = 'button';
-          waBtn.className = 'btn-sm primary';
-          waBtn.textContent = 'WhatsApp';
-          waBtn.addEventListener('click', () => openWhatsAppAppointment(a));
-          tdActions.appendChild(waBtn);
-
+          const editBtn = document.createElement('button'); editBtn.type = 'button'; editBtn.className = 'btn-sm soft'; editBtn.textContent = 'Modifica'; editBtn.addEventListener('click', () => loadAppointmentIntoForm(a.id)); tdActions.appendChild(editBtn);
+          const waBtn = document.createElement('button'); waBtn.type = 'button'; waBtn.className = 'btn-sm primary'; waBtn.textContent = 'WhatsApp'; waBtn.addEventListener('click', () => openWhatsAppAppointment(a)); tdActions.appendChild(waBtn);
           tr.appendChild(tdActions);
           appointmentTableBody.appendChild(tr);
         });
-
         refreshReports();
+        renderCalendar();
       }
-
       appointmentSaveBtn.addEventListener('click', saveAppointment);
       appointmentResetBtn.addEventListener('click', resetAppointmentForm);
       appointmentDeleteBtn.addEventListener('click', deleteAppointment);
-
       appointmentFilterDateInput.addEventListener('change', renderAppointments);
       appointmentFilterStatusSelect.addEventListener('change', renderAppointments);
       appointmentFilterResetBtn.addEventListener('click', () => {
-        appointmentFilterDateInput.value = '';
-        appointmentFilterStatusSelect.value = '';
-        renderAppointments();
+        appointmentFilterDateInput.value = ''; appointmentFilterStatusSelect.value = ''; renderAppointments();
       });
 
       // REPORT
@@ -867,94 +662,177 @@
         const done = appointments.filter(a => a.status === 'effettuato');
         let grandTotal = 0;
         let doneCount = done.length;
-
-        const byYear = {};
-        const byYearMonth = {};
-
+        const byYear = {}; const byYearMonth = {};
         done.forEach(a => {
-          const date = a.date || '';
-          if (!date || !a.price) return;
+          const date = a.date || ''; if (!date || !a.price) return;
           const year = date.slice(0,4);
           const month = date.slice(0,7);
           const price = Number(a.price) || 0;
-
           grandTotal += price;
-
-          if (!byYear[year]) byYear[year] = 0;
-          byYear[year] += price;
-
-          if (!byYearMonth[month]) byYearMonth[month] = 0;
-          byYearMonth[month] += price;
+          if (!byYear[year]) byYear[year] = 0; byYear[year] += price;
+          if (!byYearMonth[month]) byYearMonth[month] = 0; byYearMonth[month] += price;
         });
-
         return { grandTotal, doneCount, byYear, byYearMonth };
       }
-
       function refreshReportYearOptions() {
         const years = new Set();
-        appointments.forEach(a => {
-          if (a.date) years.add(a.date.slice(0,4));
-        });
+        appointments.forEach(a => { if (a.date) years.add(a.date.slice(0,4)); });
         const sorted = Array.from(years).sort();
         reportYearSelect.innerHTML = '<option value="">Tutti</option>';
         sorted.forEach(y => {
-          const opt = document.createElement('option');
-          opt.value = y;
-          opt.textContent = y;
-          reportYearSelect.appendChild(opt);
+          const opt = document.createElement('option'); opt.value = y; opt.textContent = y; reportYearSelect.appendChild(opt);
         });
       }
-
       function refreshReports() {
         const { grandTotal, doneCount, byYear, byYearMonth } = buildReportsData();
-
         reportTotalSpan.textContent = '€ ' + grandTotal.toFixed(2);
         reportDoneCountSpan.textContent = doneCount.toString();
-
         refreshReportYearOptions();
         const selectedYear = reportYearSelect.value || '';
-
         reportYearlyGrid.innerHTML = '';
-        const yearlyEntries = Object.entries(byYear).sort((a, b) => a[0].localeCompare(b[0]));
-        yearlyEntries.forEach(([year, total]) => {
+        Object.entries(byYear).sort((a,b) => a[0].localeCompare(b[0])).forEach(([year, total]) => {
           if (selectedYear && year !== selectedYear) return;
-          const div = document.createElement('div');
-          div.className = 'report-card';
-          div.textContent = `${year}: € ${total.toFixed(2)}`;
-          reportYearlyGrid.appendChild(div);
+          const div = document.createElement('div'); div.className = 'report-card'; div.textContent = `${year}: € ${total.toFixed(2)}`; reportYearlyGrid.appendChild(div);
         });
-
         reportMonthlyGrid.innerHTML = '';
-        const monthlyEntries = Object.entries(byYearMonth).sort((a, b) => a[0].localeCompare(b[0]));
-        monthlyEntries.forEach(([ym, total]) => {
-          const y = ym.slice(0,4);
-          if (selectedYear && y !== selectedYear) return;
-          const [year, month] = ym.split('-');
-          const monthLabel = `${month}/${year}`;
-          const div = document.createElement('div');
-          div.className = 'report-card';
-          div.textContent = `${monthLabel}: € ${total.toFixed(2)}`;
-          reportMonthlyGrid.appendChild(div);
+        Object.entries(byYearMonth).sort((a,b) => a[0].localeCompare(b[0])).forEach(([ym, total]) => {
+          const y = ym.slice(0,4); if (selectedYear && y !== selectedYear) return;
+          const [year, month] = ym.split('-'); const monthLabel = `${month}/${year}`;
+          const div = document.createElement('div'); div.className = 'report-card'; div.textContent = `${monthLabel}: € ${total.toFixed(2)}`; reportMonthlyGrid.appendChild(div);
         });
       }
+      reportYearSelect.addEventListener('change', () => { refreshReports(); renderCalendar(); });
+      reportResetYearBtn.addEventListener('click', () => { reportYearSelect.value = ''; refreshReports(); renderCalendar(); });
 
-      reportYearSelect.addEventListener('change', refreshReports);
-      reportResetYearBtn.addEventListener('click', () => {
-        reportYearSelect.value = '';
-        refreshReports();
+      // CALENDARIO
+      const calendarModeWeekBtn = document.getElementById('calendar-mode-week');
+      const calendarModeMonthBtn = document.getElementById('calendar-mode-month');
+      const calendarWeekWrapper = document.getElementById('calendar-week-wrapper');
+      const calendarMonthWrapper = document.getElementById('calendar-month-wrapper');
+      const calendarWeekDateInput = document.getElementById('calendar-week-date');
+      const calendarMonthInput = document.getElementById('calendar-month');
+      const calendarGrid = document.getElementById('calendar-grid');
+      let calendarMode = 'week';
+
+      function setTodayDefaults() {
+        const today = new Date();
+        const yyyy = today.getFullYear();
+        const mm = String(today.getMonth() + 1).padStart(2,'0');
+        const dd = String(today.getDate()).padStart(2,'0');
+        if (!calendarWeekDateInput.value) calendarWeekDateInput.value = `${yyyy}-${mm}-${dd}`;
+        if (!calendarMonthInput.value) calendarMonthInput.value = `${yyyy}-${mm}`;
+      }
+      function getAppointmentsByDateMap() {
+        const map = {};
+        appointments.forEach(a => {
+          if (!a.date) return;
+          if (!map[a.date]) map[a.date] = [];
+          map[a.date].push(a);
+        });
+        Object.keys(map).forEach(k => {
+          map[k].sort((a,b) => (a.time||'').localeCompare(b.time||''));
+        });
+        return map;
+      }
+      function renderCalendar() {
+        setTodayDefaults();
+        const map = getAppointmentsByDateMap();
+        calendarGrid.innerHTML = '';
+        if (calendarMode === 'week') {
+          const refStr = calendarWeekDateInput.value;
+          if (!refStr) return;
+          const [y,m,d] = refStr.split('-').map(Number);
+          let refDate = new Date(y, m-1, d);
+          let day = refDate.getDay();
+          let diff = (day + 6) % 7;
+          const monday = new Date(refDate);
+          monday.setDate(refDate.getDate() - diff);
+          for (let i=0;i<7;i++) {
+            const current = new Date(monday);
+            current.setDate(monday.getDate() + i);
+            const yyyy = current.getFullYear();
+            const mm = String(current.getMonth()+1).padStart(2,'0');
+            const dd = String(current.getDate()).padStart(2,'0');
+            const key = `${yyyy}-${mm}-${dd}`;
+            const dayDiv = document.createElement('div'); dayDiv.className = 'calendar-day';
+            const header = document.createElement('div'); header.className = 'calendar-day-header';
+            const dateSpan = document.createElement('span'); dateSpan.className = 'date'; dateSpan.textContent = dd; header.appendChild(dateSpan);
+            dayDiv.appendChild(header);
+            const body = document.createElement('div'); body.className = 'calendar-day-body';
+            const apps = map[key] || [];
+            apps.forEach(a => {
+              const row = document.createElement('div'); row.className = 'calendar-appointment';
+              const dot = document.createElement('span'); dot.className = 'dot'; row.appendChild(dot);
+              const txt = document.createTextNode(`${a.time || ''} ${getClientNameById(a.clientId)} – ${a.service}`);
+              row.appendChild(txt); body.appendChild(row);
+            });
+            dayDiv.appendChild(body);
+            calendarGrid.appendChild(dayDiv);
+          }
+        } else {
+          const monthStr = calendarMonthInput.value;
+          if (!monthStr) return;
+          const [y,m] = monthStr.split('-').map(Number);
+          const firstDay = new Date(y, m-1, 1);
+          const lastDay = new Date(y, m, 0);
+          const firstWeekday = (firstDay.getDay() + 6) % 7;
+          const daysInMonth = lastDay.getDate();
+          const totalCells = Math.ceil((firstWeekday + daysInMonth)/7)*7;
+          for (let cell=0;cell<totalCells;cell++) {
+            const dayDiv = document.createElement('div'); dayDiv.className = 'calendar-day';
+            const header = document.createElement('div'); header.className = 'calendar-day-header';
+            const dateSpan = document.createElement('span'); dateSpan.className = 'date';
+            const dayNum = cell - firstWeekday + 1;
+            let key = null;
+            if (dayNum >= 1 && dayNum <= daysInMonth) {
+              const dd = String(dayNum).padStart(2,'0');
+              const mm = String(m).padStart(2,'0');
+              key = `${y}-${mm}-${dd}`;
+              dateSpan.textContent = dd;
+            } else {
+              dateSpan.textContent = '';
+              dayDiv.style.opacity = 0.35;
+            }
+            header.appendChild(dateSpan);
+            dayDiv.appendChild(header);
+            const body = document.createElement('div'); body.className = 'calendar-day-body';
+            if (key && map[key]) {
+              map[key].forEach(a => {
+                const row = document.createElement('div'); row.className = 'calendar-appointment';
+                const dot = document.createElement('span'); dot.className = 'dot'; row.appendChild(dot);
+                const txt = document.createTextNode(`${a.time || ''} ${getClientNameById(a.clientId)} – ${a.service}`);
+                row.appendChild(txt); body.appendChild(row);
+              });
+            }
+            dayDiv.appendChild(body);
+            calendarGrid.appendChild(dayDiv);
+          }
+        }
+      }
+      calendarModeWeekBtn.addEventListener('click', () => {
+        calendarMode = 'week';
+        calendarModeWeekBtn.classList.add('active');
+        calendarModeMonthBtn.classList.remove('active');
+        calendarWeekWrapper.classList.remove('hidden');
+        calendarMonthWrapper.classList.add('hidden');
+        renderCalendar();
       });
+      calendarModeMonthBtn.addEventListener('click', () => {
+        calendarMode = 'month';
+        calendarModeMonthBtn.classList.add('active');
+        calendarModeWeekBtn.classList.remove('active');
+        calendarMonthWrapper.classList.remove('hidden');
+        calendarWeekWrapper.classList.add('hidden');
+        renderCalendar();
+      });
+      calendarWeekDateInput.addEventListener('change', renderCalendar);
+      calendarMonthInput.addEventListener('change', renderCalendar);
 
+      // Init
       renderClients('');
       renderAppointments();
-
-      // SERVICE WORKER
-      if ('serviceWorker' in navigator) {
-        window.addEventListener('load', function() {
-          navigator.serviceWorker.register('sw.js').catch(function(err) {
-            console.log('SW registration failed', err);
-          });
-        });
-      }
+      setTodayDefaults();
+      renderCalendar();
     })();
   </script>
 </body>
