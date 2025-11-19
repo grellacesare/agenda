@@ -1,9 +1,9 @@
 {
-  "name": "Agenda Onicotecnica Premium",
+  "name": "Agenda Onicotecnica Light Premium",
   "short_name": "Agenda Nails",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#030616",
-  "theme_color": "#030616",
+  "background_color": "#f5f5f7",
+  "theme_color": "#f5f5f7",
   "icons": []
 }
