@@ -1,4 +1,4 @@
-const CACHE_NAME = 'agenda-onico-cache-v1';
+const CACHE_NAME = 'agenda-onico-premium-cache-v1';
 const URLS_TO_CACHE = [
   './',
   './index.html',
